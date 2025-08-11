@@ -74,7 +74,7 @@ const About = () => {
                   Plan Your Event
                 </button>
 
-                <button className="inline-flex items-center justify-center gap-2 text-sm font-medium h-11 rounded-md border border-primary/30 text-primary hover:bg-primary/5 px-8 py-3">
+                <button className="inline-flex items-center justify-center gap-2 text-sm font-medium h-11 rounded-md border border-[#85193C]/30 text-[#85193C] hover:bg-[#85193C]/5 px-8 py-3">
                   View Our Work
                 </button>
               </div>
@@ -101,7 +101,7 @@ const About = () => {
                     <h3 className="font-semibold mb-2 text-[#FACC15] group-hover:text-[#85193C] transition-colors duration-300">
                       5000+
                     </h3>
-                    <p className="text-gray-600 text-foreground/60">Happy Families</p>
+                    <p className="text-gray-600">Happy Families</p>
                   </div>
                 </div>
 
@@ -159,7 +159,7 @@ const About = () => {
                     <h3 className="font-semibold mb-2 text-[#FACC15] group-hover:text-[#85193C] transition-colors duration-300">
                       5000+
                     </h3>
-                    <p className="text-sm text-foreground/60">Happy Families</p>
+                    <p className="text-sm text-gray-600">Happy Families</p>
                   </div>
 
                 </div>
