@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import About from './pages/About';
+import About from './pages/About.jsx';
 import Services from './pages/Services';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
