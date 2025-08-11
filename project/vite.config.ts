@@ -13,4 +13,7 @@ export default defineConfig({
   preview: {
     historyApiFallback: true,
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
+  }
 });
