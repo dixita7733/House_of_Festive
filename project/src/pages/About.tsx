@@ -34,9 +34,9 @@ const About = () => {
   ];
 
   return (
-    <div className="font-sans">
+    <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="px-20 py-20 lg:py-32">
+      <section className="px-4 py-16 lg:py-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
