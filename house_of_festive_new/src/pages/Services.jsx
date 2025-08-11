@@ -13,7 +13,7 @@ import {
   Award
 } from 'lucide-react';
 
-const Services: React.FC = () => {
+const Services = () => {
   const services = [
     {
       icon: <Palette className="w-12 h-12 text-orange-500" />,
@@ -90,7 +90,7 @@ const Services: React.FC = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-red-600 to-red-700">
+      <section className="relative py-20 bg-gradient-to-r from-[#85193C] to-red-600">
         <div className="container mx-auto px-4 text-center text-white">
           <div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -99,7 +99,7 @@ const Services: React.FC = () => {
             <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed mb-8">
               We don't just make products — we create joy
             </p>
-            <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-full px-6 py-3 inline-block">
+            <div className="bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 inline-block">
               <p className="text-orange-100 font-semibold">15+ Years of Excellence in Festival Services</p>
             </div>
           </div>
@@ -175,8 +175,8 @@ const Services: React.FC = () => {
                   className="relative group text-center"
                 >
                   {/* Step circle */}
-                  <div className="relative z-10 bg-white rounded-full border-4 border-red-600 w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:border-orange-500 transition-colors duration-300">
-                    <span className="text-2xl font-bold text-red-600 group-hover:text-orange-700 transition-colors">
+                  <div className="relative z-10 bg-white rounded-full border-4 border-[#85193C] w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:border-orange-500 transition-colors duration-300">
+                    <span className="text-2xl font-bold text-[#85193C] group-hover:text-orange-700 transition-colors">
                       {step.step}
                     </span>
                   </div>
@@ -255,7 +255,7 @@ const Services: React.FC = () => {
       <section className="py-20">
         <div className="container mx-auto px-4 text-center">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-red-600">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#85193C]">
               Ready to Get Started?
             </h2>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -274,7 +274,7 @@ const Services: React.FC = () => {
               </a>
               <a
                 href="tel:+919712923284"
-                className="inline-flex items-center space-x-2 bg-white text-red-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-50 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border-2 border-red-600"
+                className="inline-flex items-center space-x-2 bg-white text-[#85193C] px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-50 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border-2 border-[#85193C]"
               >
                 <Phone className="w-5 h-5" />
                 <span>Call Now</span>

@@ -8,6 +8,9 @@ import Products from './pages/Products';
 import Contact from './pages/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import Home from './pages/Home';
+import TestPage from './pages/TestPage';
+import WorkingAbout from './pages/WorkingAbout';
+import VerySimple from './pages/VerySimple';
 
 
 function App() {
@@ -19,7 +22,7 @@ function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Home/>} />
-              <Route path="/about" element={<About />} />
+              <Route path="/about" element={<VerySimple />} />
               <Route path="/services" element={<Services />} />
               <Route path="/products" element={<Products />} />
               <Route path="/contact" element={<Contact />} />

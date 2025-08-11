@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { 
   MapPin, 
   Phone, 
@@ -10,7 +10,7 @@ import {
   Mail
 } from 'lucide-react';
 
-const Contact: React.FC = () => {
+const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,14 +20,6 @@ const Contact: React.FC = () => {
   });
   const [isSubmitting] = useState(false);
   const [isSubmitted] = useState(false);
-
-  useEffect(() => {
-    // AOS.init({
-    //   duration: 1000,
-    //   once: true,
-    //   easing: 'ease-out-cubic'
-    // });
-  }, []);
 
   const products = [
     'Diwali Decorations',
@@ -41,7 +33,7 @@ const Contact: React.FC = () => {
     'Other'
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -49,7 +41,7 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // Create WhatsApp message
@@ -84,7 +76,7 @@ Message: ${formData.message}`;
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="relative py-16 bg-gradient-to-r from-red-600 to-red-700">
+      <section className="relative py-16 bg-gradient-to-r from-[#85193C] to-red-600">
         <div className="container mx-auto px-4 text-center text-white">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -314,7 +306,7 @@ Message: ${formData.message}`;
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 px-6 rounded-xl hover:from-red-700 hover:to-red-800 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
+                      className="w-full bg-gradient-to-r from-[#85193C] to-red-600 text-white py-4 px-6 rounded-xl hover:from-red-600 hover:to-[#85193C] focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
                     >
                       {isSubmitting ? (
                         <div className="flex items-center justify-center space-x-2">
