@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import AOS from 'aos';
 import { 
   MapPin, 
   Phone, 
@@ -7,7 +6,8 @@ import {
   Clock,
   Send,
   CheckCircle,
-  Building
+  Building,
+  Mail
 } from 'lucide-react';
 
 const Contact: React.FC = () => {
@@ -49,32 +49,31 @@ const Contact: React.FC = () => {
     }));
   };
 
- const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  // Create WhatsApp message
-  const message = `Hi! Here are my details:
+    // Create WhatsApp message
+    const message = `Hi! Here are my details:
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Product Interest: ${formData.product}
 Message: ${formData.message}`;
 
-  const whatsappUrl = `https://wa.me/916356065766?text=${encodeURIComponent(message)}`;
-  
-  // Open WhatsApp chat
-  window.open(whatsappUrl, '_blank');
+    const whatsappUrl = `https://wa.me/916356065766?text=${encodeURIComponent(message)}`;
+    
+    // Open WhatsApp chat
+    window.open(whatsappUrl, '_blank');
 
-  // Optionally reset form
-  setFormData({
-    name: '',
-    email: '',
-    phone: '',
-    product: '',
-    message: ''
-  });
-};
-
+    // Optionally reset form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      product: '',
+      message: ''
+    });
+  };
 
   const handleWhatsAppContact = () => {
     const message = `Hi! I'm interested in your festival products. Please share more details.`;
@@ -85,9 +84,9 @@ Message: ${formData.message}`;
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="relative py-16 btn-gradient-custom">
+      <section className="relative py-16 bg-gradient-to-r from-red-600 to-red-700">
         <div className="container mx-auto px-4 text-center text-white">
-          <div data-aos="fade-up">
+          <div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Get in <span className="text-yellow-300">Touch</span>
             </h1>
@@ -103,7 +102,7 @@ Message: ${formData.message}`;
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Information */}
-            <div data-aos="fade-right">
+            <div>
               <h2 className="text-3xl font-bold text-gray-800 mb-8">Contact Information</h2>
               
               <div className="space-y-6">
@@ -153,10 +152,26 @@ Message: ${formData.message}`;
                   </div>
                 </div>
 
-                {/* Business Hours */}
+                {/* Email */}
                 <div className="flex items-start space-x-4 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                   <div className="bg-purple-100 p-3 rounded-full">
-                    <Clock className="w-6 h-6 text-purple-600" />
+                    <Mail className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-2">Email Us</h3>
+                    <a 
+                      href="mailto:info@houseoffestival.com" 
+                      className="text-gray-600 hover:text-purple-600 transition-colors"
+                    >
+                      info@houseoffestival.com
+                    </a>
+                  </div>
+                </div>
+
+                {/* Business Hours */}
+                <div className="flex items-start space-x-4 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="bg-yellow-100 p-3 rounded-full">
+                    <Clock className="w-6 h-6 text-yellow-600" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-2">Business Hours</h3>
@@ -169,8 +184,8 @@ Message: ${formData.message}`;
 
                 {/* GST */}
                 <div className="flex items-start space-x-4 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <div className="bg-yellow-100 p-3 rounded-full">
-                    <Building className="w-6 h-6 text-yellow-600" />
+                  <div className="bg-red-100 p-3 rounded-full">
+                    <Building className="w-6 h-6 text-red-600" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-2">GST Number</h3>
@@ -200,7 +215,7 @@ Message: ${formData.message}`;
             </div>
 
             {/* Contact Form */}
-            <div data-aos="fade-left">
+            <div>
               <div className="bg-white rounded-2xl p-8 shadow-lg">
                 <h2 className="text-3xl font-bold text-gray-800 mb-6">Send us a Message</h2>
 
@@ -299,7 +314,7 @@ Message: ${formData.message}`;
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full btn-gradient-custom py-4 px-6 rounded-xl hover:from-orange-600 hover:to-red-600 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
+                      className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 px-6 rounded-xl hover:from-red-700 hover:to-red-800 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none font-medium"
                     >
                       {isSubmitting ? (
                         <div className="flex items-center justify-center space-x-2">
@@ -321,15 +336,15 @@ Message: ${formData.message}`;
         </div>
       </section>
 
-      {/* Map Section (Optional - showing placeholder) */}
-      <section className="py-16 bg-gray-50 mb-[0px]">
+      {/* Map Section */}
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8" data-aos="fade-up">
+          <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Find Us</h2>
             <p className="text-lg text-gray-600">Visit our showroom in Rajkot, Gujarat</p>
           </div>
           
-          <div data-aos="fade-up" className="bg-white rounded-2xl p-8 shadow-lg">
+          <div className="bg-white rounded-2xl p-8 shadow-lg">
             <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-12 text-center">
               <MapPin className="w-16 h-16 text-orange-600 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-800 mb-4">Visit Our Showroom</h3>
