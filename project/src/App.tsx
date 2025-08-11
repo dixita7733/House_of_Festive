@@ -8,6 +8,7 @@ import Products from './pages/Products';
 import Contact from './pages/Contact';
 import AdminDashboard from './pages/AdminDashboard';
 import Home from './pages/Home';
+import TestPage from './pages/TestPage';
 
 
 function App() {
