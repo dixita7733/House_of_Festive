@@ -1,5 +1,4 @@
 import React from 'react';
-// import AOS from 'aos';
 import { 
   Palette, 
   Package, 
@@ -15,14 +14,6 @@ import {
 } from 'lucide-react';
 
 const Services: React.FC = () => {
-  // useEffect(() => {
-  //   AOS.init({
-  //     duration: 1000,
-  //     once: true,
-  //     easing: 'ease-out-cubic'
-  //   });
-  // }, []);
-
   const services = [
     {
       icon: <Palette className="w-12 h-12 text-orange-500" />,
@@ -99,16 +90,16 @@ const Services: React.FC = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="relative py-20 btn-gradient-custom">
+      <section className="relative py-20 bg-gradient-to-r from-red-600 to-red-700">
         <div className="container mx-auto px-4 text-center text-white">
-          <div data-aos="fade-up">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          <div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Our <span className="text-yellow-300">Services</span>
             </h1>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed mb-8">
               We don't just make products — we create joy
             </p>
-            <div className="bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 inline-block">
+            <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-full px-6 py-3 inline-block">
               <p className="text-orange-100 font-semibold">15+ Years of Excellence in Festival Services</p>
             </div>
           </div>
@@ -118,7 +109,7 @@ const Services: React.FC = () => {
       {/* Services Grid */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16" data-aos="fade-up">
+          <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
               Comprehensive Festival Solutions
             </h2>
@@ -132,8 +123,6 @@ const Services: React.FC = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
                 className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
               >
                 <div className="flex items-start space-x-6">
@@ -166,7 +155,7 @@ const Services: React.FC = () => {
       {/* Process Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16" data-aos="fade-up">
+          <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
               Our Process
             </h2>
@@ -183,13 +172,11 @@ const Services: React.FC = () => {
               {processSteps.map((step, index) => (
                 <div
                   key={index}
-                  data-aos="fade-up"
-                  data-aos-delay={index * 200}
                   className="relative group text-center"
                 >
                   {/* Step circle */}
-                  <div className="relative z-10 bg-white rounded-full border-4 theme-color w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:border-orange-500 transition-colors duration-300">
-                    <span className="text-2xl font-bold theme-color group-hover:text-orange-700 transition-colors">
+                  <div className="relative z-10 bg-white rounded-full border-4 border-red-600 w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:border-orange-500 transition-colors duration-300">
+                    <span className="text-2xl font-bold text-red-600 group-hover:text-orange-700 transition-colors">
                       {step.step}
                     </span>
                   </div>
@@ -214,14 +201,14 @@ const Services: React.FC = () => {
       <section className="py-20 bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
+            <div>
               <img
                 src="https://images.pexels.com/photos/1131555/pexels-photo-1131555.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt="Quality Assurance Process"
                 className="rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500"
               />
             </div>
-            <div data-aos="fade-left">
+            <div>
               <h2 className="text-4xl font-bold text-gray-800 mb-6">
                 Why Choose Our Services?
               </h2>
@@ -265,13 +252,13 @@ const Services: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 ">
-        <div className="container mx-auto px-4 text-center ">
-          <div data-aos="fade-up">
-            <h2 className="text-4xl text-[#85193C] md:text-5xl font-bold mb-6">
+      <section className="py-20">
+        <div className="container mx-auto px-4 text-center">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-red-600">
               Ready to Get Started?
             </h2>
-            <p className="text-xl text-[#b6a1a8] mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Contact us today to discuss your festival needs and discover how we can
               make your celebrations truly memorable.
             </p>
@@ -287,10 +274,10 @@ const Services: React.FC = () => {
               </a>
               <a
                 href="tel:+919712923284"
-                className="inline-flex items-center space-x-2 bg-white text-orange-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-50 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                className="inline-flex items-center space-x-2 bg-white text-red-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-50 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border-2 border-red-600"
               >
-                <Phone className="w-5 h-5 text-[#85193C]"/>
-                <span className='text-[#85193C]'>Call Now</span>
+                <Phone className="w-5 h-5" />
+                <span>Call Now</span>
               </a>
             </div>
           </div>
