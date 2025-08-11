@@ -42,7 +42,7 @@ const About = () => {
             {/* Left Content */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <div className="inline-flex items-center rounded-full border text-xs font-semibold px-4 py-1.5 bg-accent/20 text-accent-foreground border-accent/30">
+                <div className="inline-flex items-center rounded-full border text-xs font-semibold px-4 py-1.5 bg-orange-100 text-orange-800 border-orange-300">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
                     <path d="M20 3v4M22 5h-4M4 17v2M5 18H3" />
@@ -50,23 +50,23 @@ const About = () => {
                   Celebrating Excellence Since 2009
                 </div>
 
-                <h1 className="text-5xl lg:text-7xl font-bold leading-tight theme-color text-foreground">
-                  About <span className="text-primary">House of</span>{' '}
+                <h1 className="text-5xl lg:text-7xl font-bold leading-tight text-gray-900">
+                  About <span className="text-[#85193C]">House of</span>{' '}
                   <span className="text-7xl font-bold bg-gradient-to-r from-[#fde047] to-[#85193C] bg-clip-text text-transparent">Festival</span>
                 </h1>
 
-                <p className="text-xl lg:text-2xl text-foreground/70 leading-relaxed">
+                <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
                   Celebrating traditions with elegance for over 15 years
                 </p>
               </div>
 
-              <p className="text-lg text-foreground/60 leading-relaxed max-w-2xl">
+              <p className="text-lg text-gray-500 leading-relaxed max-w-2xl">
                 We craft unforgettable experiences that honor cultural heritage while embracing modern sophistication. From
                 intimate gatherings to grand celebrations, we bring your vision to life with meticulous attention to detail.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="inline-flex items-center justify-center gap-2 text-sm font-medium h-11 rounded-md bg-primary hover:bg-primary/90 text-white px-8 py-3">
+                <button className="inline-flex items-center justify-center gap-2 text-sm font-medium h-11 rounded-md bg-[#85193C] hover:bg-[#85193C]/90 text-white px-8 py-3">
                   <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path d="M8 2v4M16 2v4M3 10h18M3 4h18v18H3z" />
                     <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" />
