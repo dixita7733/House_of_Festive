@@ -1,3 +1,78 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+.theme-color {
+    color: #85193C;
+}
+
+.btn-gradient-custom {
+    background-image: linear-gradient(to right, #85193C, #b51f50);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient-custom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Force some basic styles to ensure visibility */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.text-4xl {
+    font-size: 2.25rem !important;
+    line-height: 2.5rem !important;
+}
+
+.text-red-600 {
+    color: #dc2626 !important;
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+.pt-20 {
+    padding-top: 5rem !important;
+}
+
+.px-4 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.py-16 {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
+.mb-8 {
+    margin-bottom: 2rem !important;
+}
+
+.font-bold {
+    font-weight: 700 !important;
+}
