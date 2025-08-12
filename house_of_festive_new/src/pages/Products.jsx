@@ -1,244 +1,259 @@
-import React from 'react';
-import { Star, ShoppingCart, Eye } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Filter, Search, Grid, List, X } from 'lucide-react';
+import ProductCard from '../components/ProductCard';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from "../firebase/config";
 
 const Products = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Traditional Diwali Rangoli Set",
-      price: "₹1,299",
-      originalPrice: "₹1,599",
-      rating: 4.8,
-      reviews: 124,
-      image: "https://images.pexels.com/photos/1131555/pexels-photo-1131555.jpeg?auto=compress&cs=tinysrgb&w=800",
-      category: "Diwali",
-      description: "Beautiful handcrafted rangoli stencils with vibrant colors"
-    },
-    {
-      id: 2,
-      name: "Navratri Garba Accessories",
-      price: "₹899",
-      originalPrice: "₹1,199",
-      rating: 4.9,
-      reviews: 89,
-      image: "https://images.pexels.com/photos/1131555/pexels-photo-1131555.jpeg?auto=compress&cs=tinysrgb&w=800",
-      category: "Navratri",
-      description: "Complete set of traditional garba dance accessories"
-    },
-    {
-      id: 3,
-      name: "Ganesh Chaturthi Decoration",
-      price: "₹2,499",
-      originalPrice: "₹2,999",
-      rating: 4.7,
-      reviews: 67,
-      image: "https://images.pexels.com/photos/1131555/pexels-photo-1131555.jpeg?auto=compress&cs=tinysrgb&w=800",
-      category: "Ganesh Chaturthi",
-      description: "Elegant Lord Ganesha decoration set with flowers"
-    },
-    {
-      id: 4,
-      name: "Raksha Bandhan Special Rakhi",
-      price: "₹599",
-      originalPrice: "₹799",
-      rating: 4.9,
-      reviews: 156,
-      image: "https://images.pexels.com/photos/1131555/pexels-photo-1131555.jpeg?auto=compress&cs=tinysrgb&w=800",
-      category: "Raksha Bandhan",
-      description: "Handmade premium rakhi with traditional designs"
-    },
-    {
-      id: 5,
-      name: "Karva Chauth Essentials",
-      price: "₹1,799",
-      originalPrice: "₹2,199",
-      rating: 4.8,
-      reviews: 94,
-      image: "https://images.pexels.com/photos/1131555/pexels-photo-1131555.jpeg?auto=compress&cs=tinysrgb&w=800",
-      category: "Karva Chauth",
-      description: "Complete puja thali set with traditional elements"
-    },
-    {
-      id: 6,
-      name: "Holi Color Festival Pack",
-      price: "₹1,099",
-      originalPrice: "₹1,399",
-      rating: 4.6,
-      reviews: 203,
-      image: "https://images.pexels.com/photos/1131555/pexels-photo-1131555.jpeg?auto=compress&cs=tinysrgb&w=800",
-      category: "Holi",
-      description: "Natural and safe holi colors in vibrant shades"
-    }
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [viewMode, setViewMode] = useState('grid');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const categories = [
+    'All', 'Diwali', 'Navratri', 'Raksha Bandhan', 'Holi', 'Ganesh Chaturthi', 'Karva Chauth'
   ];
 
-  const categories = ["All", "Diwali", "Navratri", "Ganesh Chaturthi", "Raksha Bandhan", "Karva Chauth", "Holi"];
+  // Fetch products from Firestore
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const productList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          createdAt: doc.data().createdAt?.toDate() || new Date()
+        }));
+        setProducts(productList);
+        setFilteredProducts(productList);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  // Filter whenever category or search term changes
+  useEffect(() => {
+    let filtered = products;
+
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter(product => product.category === selectedCategory);
+    }
+
+    if (searchTerm) {
+      filtered = filtered.filter(product =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.color.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.size.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [products, selectedCategory, searchTerm]);
+
+  const clearFilters = () => {
+    setSearchTerm('');
+    setSelectedCategory('All');
+    setIsFilterOpen(false);
+  };
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-20 bg-gray-50">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-[#85193C] to-red-600">
+      <section className="relative py-12 lg:py-16 bg-gradient-to-r from-[#85193C] to-[#b51f50]">
         <div className="container mx-auto px-4 text-center text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Our <span className="text-yellow-300">Products</span>
+          <h1 className="text-3xl lg:text-5xl font-bold mb-4">
+            Festival <span className="text-yellow-300">Products</span>
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed">
+          <p className="responsive-text-xl max-w-2xl mx-auto">
             Discover our exclusive collection of handcrafted festival essentials
           </p>
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="py-8 bg-white sticky top-20 z-40 border-b">
+      {/* Search & Filter */}
+      <section className="py-6 bg-white shadow-sm sticky top-20 z-40">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
+          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+            {/* Search */}
+            <div className="relative flex-1 max-w-md w-full">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search products..."
+                className="form-input pl-10"
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            <div className="flex items-center space-x-4 w-full lg:w-auto">
+              {/* Mobile Filter Toggle */}
               <button
-                key={category}
-                className="px-6 py-2 rounded-full border-2 border-[#85193C] text-[#85193C] hover:bg-[#85193C] hover:text-white transition-all duration-300 font-medium"
+                className="lg:hidden bg-[#85193C] text-white px-4 py-2.5 rounded-lg flex items-center space-x-2 flex-1 justify-center"
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
               >
-                {category}
+                <Filter className="w-5 h-5" />
+                <span>Filter</span>
               </button>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Products Grid */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group"
-              >
-                {/* Product Image */}
-                <div className="relative overflow-hidden rounded-t-2xl">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {Math.round(((parseFloat(product.originalPrice.replace('₹', '').replace(',', '')) - parseFloat(product.price.replace('₹', '').replace(',', ''))) / parseFloat(product.originalPrice.replace('₹', '').replace(',', ''))) * 100)}% OFF
-                    </span>
-                  </div>
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 transition-colors">
-                      <Eye className="w-5 h-5 text-gray-600" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Product Info */}
-                <div className="p-6">
-                  <div className="mb-2">
-                    <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-semibold">
-                      {product.category}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-[#85193C] transition-colors">
-                    {product.name}
-                  </h3>
-                  
-                  <p className="text-gray-600 text-sm mb-4">
-                    {product.description}
-                  </p>
-
-                  {/* Rating */}
-                  <div className="flex items-center mb-4">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${
-                            i < Math.floor(product.rating)
-                              ? 'text-yellow-400 fill-current'
-                              : 'text-gray-300'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600 ml-2">
-                      {product.rating} ({product.reviews} reviews)
-                    </span>
-                  </div>
-
-                  {/* Price */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-2xl font-bold text-[#85193C]">
-                        {product.price}
-                      </span>
-                      <span className="text-lg text-gray-500 line-through">
-                        {product.originalPrice}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Add to Cart Button */}
-                  <button className="w-full bg-gradient-to-r from-[#85193C] to-red-600 text-white py-3 px-6 rounded-lg hover:from-red-600 hover:to-[#85193C] transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 font-semibold">
-                    <ShoppingCart className="w-5 h-5" />
-                    <span>Add to Cart</span>
-                  </button>
-                </div>
+              {/* View Mode */}
+              <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 rounded-md transition-colors ${viewMode === 'grid'
+                    ? 'bg-[#85193C] text-white'
+                    : 'text-gray-600 hover:text-[#85193C]'}`}
+                >
+                  <Grid className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 rounded-md transition-colors ${viewMode === 'list'
+                    ? 'bg-[#85193C] text-white'
+                    : 'text-gray-600 hover:text-[#85193C]'}`}
+                >
+                  <List className="w-5 h-5" />
+                </button>
               </div>
-            ))}
+            </div>
           </div>
 
-          {/* Load More Button */}
-          <div className="text-center mt-12">
-            <button className="bg-white text-[#85193C] px-8 py-3 rounded-full font-semibold border-2 border-[#85193C] hover:bg-[#85193C] hover:text-white transition-all duration-300 transform hover:scale-105">
-              Load More Products
-            </button>
+          {/* Category Filter */}
+          <div className={`mt-6 ${isFilterOpen ? 'block' : 'hidden'} lg:block`}>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
+                    selectedCategory === category
+                      ? 'bg-gradient-to-r from-[#85193C] to-[#b51f50] text-white shadow-lg'
+                      : 'bg-white text-gray-600 border border-gray-200 hover:border-[#85193C] hover:text-[#85193C]'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white">
+      {/* Products */}
+      <section className="py-8 lg:py-12">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Why Our Products Stand Out
+          <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
+            <p className="text-gray-600">
+              Showing <span className="font-semibold text-[#85193C]">{filteredProducts.length}</span> products
+              {searchTerm && <> for "<span className="font-semibold">{searchTerm}</span>"</>}
+              {selectedCategory !== 'All' && <> in <span className="font-semibold">{selectedCategory}</span></>}
+            </p>
+            
+            {(searchTerm || selectedCategory !== 'All') && (
+              <button
+                onClick={clearFilters}
+                className="text-sm text-[#85193C] hover:text-[#b51f50] font-medium"
+              >
+                Clear all filters
+              </button>
+            )}
+          </div>
+
+          {loading ? (
+            <div className="flex justify-center items-center py-16">
+              <div className="text-center">
+                <div className="loading-spinner border-[#85193C] w-8 h-8 mx-auto mb-4"></div>
+                <p className="text-gray-600">Loading products...</p>
+              </div>
+            </div>
+          ) : filteredProducts.length > 0 ? (
+            <div
+              className={`grid gap-6 lg:gap-8 ${
+                viewMode === 'grid'
+                  ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                  : 'grid-cols-1 max-w-4xl mx-auto'
+              }`}
+            >
+              {filteredProducts.map((product) => (
+                <div key={product.id} className={viewMode === 'list' ? 'max-w-none' : ''}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <div className="bg-white rounded-2xl p-8 lg:p-12 shadow-lg max-w-md mx-auto">
+                <div className="text-6xl mb-6">🔍</div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">No Products Found</h3>
+                <p className="text-gray-600 mb-6">
+                  Try adjusting your search criteria or browse our other categories.
+                </p>
+                <button
+                  onClick={clearFilters}
+                  className="btn-gradient-custom"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Featured Categories */}
+      <section className="py-12 lg:py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+              Shop by Festival
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Each product is carefully crafted with attention to detail and cultural authenticity
+            <p className="responsive-text-xl text-gray-600 max-w-2xl mx-auto">
+              Find the perfect products for your favorite festivals
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="w-8 h-8 text-orange-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Premium Quality</h3>
-              <p className="text-gray-600">
-                Only the finest materials and traditional techniques are used in our products
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Eye className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Authentic Designs</h3>
-              <p className="text-gray-600">
-                Each design is rooted in traditional Indian culture and festivals
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShoppingCart className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Fast Delivery</h3>
-              <p className="text-gray-600">
-                Quick and secure delivery across India to reach you on time
-              </p>
-            </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
+            {categories.slice(1).map((category) => (
+              <button
+                key={category}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="group bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-4 lg:p-6 text-center hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2"
+              >
+                <div className="text-3xl lg:text-4xl mb-3 lg:mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {category === 'Diwali' ? '🪔' :
+                    category === 'Navratri' ? '💃' :
+                      category === 'Raksha Bandhan' ? '🎀' :
+                        category === 'Holi' ? '🎨' :
+                          category === 'Ganesh Chaturthi' ? '🐘' :
+                            category === 'Karva Chauth' ? '🌙' : '🎉'}
+                </div>
+                <h3 className="font-semibold text-gray-800 group-hover:text-[#85193C] transition-colors text-sm lg:text-base">
+                  {category}
+                </h3>
+              </button>
+            ))}
           </div>
         </div>
       </section>
